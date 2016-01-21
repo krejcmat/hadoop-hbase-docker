@@ -1,7 +1,7 @@
 #!/bin/bash
 
 image=$1
-tag="0.1.0"
+tag="latest"
 
 if [ $# = 0 ]
 then
@@ -13,8 +13,8 @@ fi
 # founction for delete images
 function docker_rmi()
 {
-	echo -e "\n\nsudo docker rmi kiwenlau/$1:$tag"
-	sudo docker rmi kiwenlau/$1:$tag
+	echo -e "\n\nsudo docker rmi krejcmat/$1:$tag"
+	sudo docker rmi krejcmat/$1:$tag
 }
 
 
@@ -22,8 +22,8 @@ function docker_rmi()
 function docker_build()
 {
 	cd $1
-	echo -e "\n\nsudo docker build -t kiwenlau/$1:$tag ."
-	/usr/bin/time -f "real  %e" sudo docker build -t kiwenlau/$1:$tag .
+	echo -e "\n\nsudo docker build -t krejcmat/$1:$tag ."
+	/usr/bin/time -f "real  %e" sudo docker build -t krejcmat/$1:$tag .
 	cd ..
 }
 
