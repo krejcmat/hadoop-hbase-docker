@@ -8,6 +8,8 @@ cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\
 rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/* &&\
 echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd && \
 echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \ 
+apt-get update && apt-get upgrade -y 
+
 
 # move all confugration /tmp into container
 ADD files/* /tmp/
