@@ -10,7 +10,6 @@ echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%
 echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \ 
 apt-get update && apt-get upgrade -y 
 
-
 # move all confugration /tmp into container
 ADD files/* /tmp/
 

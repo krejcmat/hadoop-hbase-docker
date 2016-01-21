@@ -1,4 +1,4 @@
-FROM krejcmat/hadoop-hbase-master:0.1.0
+FROM krejcmat/hadoop-hbase-master:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
@@ -9,7 +9,6 @@ rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/sh
 echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd && \
 echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \
 apt-get update && apt-get upgrade -y 
-
 
 ENV HADOOP_INSTALL /usr/local/hadoop
 

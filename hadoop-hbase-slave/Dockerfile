@@ -1,4 +1,4 @@
-FROM krejcmat/hadoop-hbase-slave:0.1.0
+FROM krejcmat/hadoop-hbase-slave:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
