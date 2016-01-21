@@ -2,13 +2,13 @@ FROM krejcmat/hadoop-hbase-slave:0.1.0
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
-RUN apt-get update && apt-get upgrade -y 
-RUN pt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
-RUN cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\@* /usr/share/locale/
-RUN rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/*
-RUN echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd
-RUN echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list
-RUN apt-get update && apt-get upgrade -y 
+RUN apt-get update && apt-get upgrade -y &&\
+apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y&&\
+cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\@* /usr/share/locale/ &&\
+rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/* &&\
+echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd &&\
+echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list &&\
+apt-get update && apt-get upgrade -y 
 
 # install openssh-server, vim and openjdk
 RUN apt-get install -y openssh-server vim
