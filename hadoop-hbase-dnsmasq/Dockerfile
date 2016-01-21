@@ -17,7 +17,8 @@ ADD dnsmasq/* /etc/
 
 # install serf
 RUN curl -Lso serf.zip https://dl.bintray.com/mitchellh/serf/0.5.0_linux_amd64.zip && \
-unzip serf.zip -d /bin && \
+rm -fr /bin/serf
+RUN unzip serf.zip -d /bin && \
 rm serf.zip
 
 # configure serf

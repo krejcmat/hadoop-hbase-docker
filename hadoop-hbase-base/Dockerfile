@@ -1,15 +1,6 @@
 FROM krejcmat/hadoop-hbase-dnsmasq:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
-# init wheezy docker
-RUN echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \ 
-apt-get update && apt-get upgrade -y && \
-apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
-cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\@* /usr/share/locale/ && \
-rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/* &&\
-echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd && \
-apt-get update
-
 # install openssh-server, vim and openjdk
 RUN apt-get install -y openssh-server vim wget
 RUN apt-get install -y openjdk-7-jdk 
