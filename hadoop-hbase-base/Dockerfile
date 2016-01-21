@@ -1,4 +1,4 @@
-FROM krejcmat/hadoop-hbase-base:0.1.0
+FROM krejcmat/hadoop-hbase-base:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
