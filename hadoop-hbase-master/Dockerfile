@@ -8,7 +8,7 @@ ENV HADOOP_INSTALL /usr/local/hadoop
 
 RUN mkdir -p ~/hdfs/namenode && \ 
 mkdir -p ~/hdfs/datanode && \
-mkdir $HADOOP_INSTALL/logs
+#mkdir $HADOOP_INSTALL/logs
 
 RUN mv /tmp/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml && \ 
 mv /tmp/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml && \
