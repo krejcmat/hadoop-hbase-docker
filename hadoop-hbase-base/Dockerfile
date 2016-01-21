@@ -1,30 +1,33 @@
-FROM krejcmat/hadoop-hbase-base:latest
+FROM krejcmat/hadoop-hbase-dnsmasq:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
-RUN apt-get update && apt-get upgrade -y && \
+RUN echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \ 
+apt-get update && apt-get upgrade -y && \
 apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
 cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\@* /usr/share/locale/ && \
 rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/* &&\
-echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd && \
-echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \ 
-apt-get update && apt-get upgrade -y 
+echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd
 
-# move all confugration /tmp into container
-ADD files/* /tmp/
+# install openssh-server, vim and openjdk
+RUN apt-get install -y openssh-server vim
+RUN apt-get install -y openjdk-7-jdk 
 
-ENV HADOOP_INSTALL /usr/local/hadoop
+# move all configuration files into container
+ADD files/* /usr/local/  
 
-RUN mkdir $HADOOP_INSTALL/logs
+# set jave environment variable 
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64 
+ENV PATH $PATH:$JAVA_HOME/bin
 
-RUN mv /tmp/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml && \
-mv /tmp/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml && \
-mv /tmp/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml && \
-mv /tmp/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml 
+#configure ssh free key access
+RUN mkdir /var/run/sshd && \
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
+mv /usr/local/ssh_config ~/.ssh/config && \
+sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-RUN mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh && \
-chmod +x ~/start-ssh-serf.sh
-
-EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
-
-CMD '/root/start-ssh-serf.sh'; 'bash'
+#install hadoop 2.30
+RUN ln -s /usr/local/hadoop-2.3.0 /usr/local/hadoop && \
+mv /usr/local/bashrc ~/.bashrc && \
+mv /usr/local/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
