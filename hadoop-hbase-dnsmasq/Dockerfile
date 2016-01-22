@@ -1,4 +1,4 @@
-FROM krejcmat/hadoop-hbase-dnsmasq:latest
+FROM philcryer/min-wheezy:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
