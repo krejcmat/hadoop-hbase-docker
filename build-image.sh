@@ -63,6 +63,8 @@ else
 	echo "The image name is wrong!"
 fi
 
+docker_rmi hadoop-hbase-base
+
 echo -e "\nimages before build"
 cat images.txt
 rm images.txt
