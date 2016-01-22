@@ -3,10 +3,10 @@
 # run N slave containers
 N=$1
 tag="latest"
-# the defaut node number is 3
+# the defaut node number is 4
 if [ $# = 0 ]
 then
-	N=3
+	N=4
 fi
 
 # delete old master container and start new master container
