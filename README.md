@@ -12,7 +12,7 @@ $ docker pull krejcmat/hadoop-hbase-dnsmasq:latest
 
 ```
 $ docker images
-```
+
 krejcmat/hadoop-hbase-slave         latest              4b0138d7210b        4 hours ago         905.2 MB
 krejcmat/hadoop-hbase-master        latest              6117989f30c5        4 hours ago         905.2 MB
 krejcmat/hadoop-hbase-base          latest              dccf08d8af07        5 hours ago         905.2 MB
@@ -27,6 +27,7 @@ $ cd hadoop-hbase-docker
 ```
 
 see file structure of project $ tree
+
 ```
 .
 ├── build-image.sh
@@ -76,6 +77,8 @@ see file structure of project $ tree
 ├── resize-cluster.sh
 └── start-container.sh
 ```
+
+
 #### Links:
 [configuration hdfs-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 
