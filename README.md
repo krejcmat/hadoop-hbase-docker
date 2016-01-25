@@ -30,8 +30,7 @@ see file structure of project $ tree
 
 ```
 .
-├── build-image.sh
-├── gitcommit.sh
+
 ├── hadoop-hbase-base
 │   ├── Dockerfile
 │   └── files
@@ -72,8 +71,6 @@ see file structure of project $ tree
 │       └── yarn-site.xml
 ├── README.md
 ├── rebuild_hub.sh
-├── rebuild_hub.sh.save
-├── rebuild_hub.sh.save.1
 ├── resize-cluster.sh
 └── start-container.sh
 ```
