@@ -92,11 +92,13 @@ $ hdfs dfsadmin -report
 ```
 
 #### Sources:
+#####General
 [HBASE-what is pseudo-distributed](http://archive.cloudera.com/cdh5/cdh/5/hbase-0.98.6-cdh5.3.4/book/standalone_dist.html)
 
-[Hadoop YARN installation guide](http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide/)
-
 [SERF: tool for cluster membership](https://www.serfdom.io/intro/)
+
+#####configuration
+[Hadoop YARN installation guide](http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide/)
 
 [configuration hdfs-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 
@@ -106,4 +108,8 @@ $ hdfs dfsadmin -report
 
 [configuration core-site.xml](http://doc.mapr.com/display/MapR/Default+core+Parameters)
 
+######docker
 [how to make docker image smaller](http://jasonwilder.com/blog/2014/08/19/squashing-docker-images/)
+
+######HBase db
+[python wrapper for HBASE rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
