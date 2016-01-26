@@ -2,8 +2,7 @@ FROM philcryer/min-wheezy:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # init wheezy docker
-RUN echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \ 
-apt-get upgrade -y && \ 
+RUN echo 'deb http://ftp.cz.debian.org/debian stable main contrib'>> /etc/apt/sources.list && \  
 apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
 cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\@* /usr/share/locale/ && \
 rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/* && \
@@ -26,3 +25,6 @@ ENV SERF_CONFIG_DIR /etc/serf
 ADD serf/* $SERF_CONFIG_DIR/
 ADD handlers $SERF_CONFIG_DIR/handlers
 RUN chmod +x  $SERF_CONFIG_DIR/event-router.sh $SERF_CONFIG_DIR/start-serf-agent.sh
+
+RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+rm -rf /var/lib/{apt,dpkg,cache,log}/

@@ -33,3 +33,6 @@ RUN wget -q -o /dev/null -P /tmp http://www.eu.apache.org/dist/hbase/1.1.2/hbase
 tar vxzf /tmp/hbase-1.1.2-bin.tar.gz -C /usr/local && \
 rm /tmp/hbase-1.1.2-bin.tar.gz  && \
 mv /usr/local/hbase-1.1.2 /usr/local/hbase 
+
+RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+rm -rf /var/lib/{apt,dpkg,cache,log}/

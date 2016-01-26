@@ -18,7 +18,6 @@ mv /tmp/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml && \
 mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
 mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \ 
 mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh && \ 
-mv /tmp/configure-slaves.sh ~/configure-slaves.sh && \ 
 mv /tmp/hbase-site.xml /usr/local/hbase/conf/hbase-site.xml -f && \
 mv /tmp/master $HADOOP_INSTALL/etc/hadoop/master
 
@@ -33,3 +32,6 @@ RUN /usr/local/hadoop/bin/hdfs namenode -format
 EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
 
 CMD '/root/start-ssh-serf.sh'; 'bash'
+
+RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+rm -rf /var/lib/{apt,dpkg,cache,log}/
