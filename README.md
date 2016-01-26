@@ -86,6 +86,11 @@ $ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
 $ cd hadoop-hbase-docker
 ```
 
+#####Print report of nodes 
+```
+$ hdfs dfsadmin -report
+```
+
 #### Sources:
 [HBASE-what is pseudo-distributed](http://archive.cloudera.com/cdh5/cdh/5/hbase-0.98.6-cdh5.3.4/book/standalone_dist.html)
 
@@ -101,3 +106,4 @@ $ cd hadoop-hbase-docker
 
 [configuration core-site.xml](http://doc.mapr.com/display/MapR/Default+core+Parameters)
 
+[how to make docker image smaller](http://jasonwilder.com/blog/2014/08/19/squashing-docker-images/)

@@ -23,8 +23,8 @@ function init_members(){
         while read -r member
         do
                 echo "copy $slaves "
-                 scp $slaves $member:$HADOOP_CONF_DIR/slave 
-                 scp $hbaseconf	$member:$hbaseconf
+                 scp $slaves $member:$HADOOP_CONF_DIR/slaves 
+                 scp $hbaseconf $member:$hbaseconf
         done < "$slaves"
 }
 
