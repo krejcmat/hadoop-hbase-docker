@@ -26,5 +26,6 @@
    <property>
       <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
       <value>false</value>
+      <description>If true (the default), then the namenode requires that a connecting datanode's address must be resolved to a hostname. If necessary, a reverse DNS lookup is performed. All attempts to register a datanode from an unresolvable address are rejected. It is recommended that this setting be left on to prevent accidental registration of datanodes listed by hostname in the excludes file during a DNS outage. Only set this to false in environments where there is no infrastructure to support reverse DNS lookup.</description>
    </property>
 </configuration>
