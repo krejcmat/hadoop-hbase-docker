@@ -9,8 +9,7 @@ cp -R /usr/share/locale/en\@* /tmp/ && rm -rf /usr/share/locale/* && mv /tmp/en\
 rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/share/doc/* &&\
 echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd
 
-RUN && \
-apt-get install -y unzip curl dnsmasq
+RUN apt-get install -y unzip curl dnsmasq
 
 # dnsmasq configuration
 ADD dnsmasq/* /etc/
