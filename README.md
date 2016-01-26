@@ -91,13 +91,13 @@ $ cd hadoop-hbase-docker
 $ hdfs dfsadmin -report
 ```
 
-#### Sources:
-#####General
+####Sources:
+######general
 [HBASE-what is pseudo-distributed](http://archive.cloudera.com/cdh5/cdh/5/hbase-0.98.6-cdh5.3.4/book/standalone_dist.html)
 
 [SERF: tool for cluster membership](https://www.serfdom.io/intro/)
 
-#####configuration
+######configuration
 [Hadoop YARN installation guide](http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide/)
 
 [configuration hdfs-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
