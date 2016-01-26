@@ -1,7 +1,66 @@
 # in development !!
 # hadoop-hbase-docker
-Quickly build arbitrary size Hadoop Cluster based on Docker includes Hbase databse system
+Quickly build arbitrary size Hadoop Cluster based on Docker includes Hbase database system
 ------
+
+see file structure of project $ tree
+
+```
+├.
+├── hadoop-hbase-base
+│   ├── Dockerfile
+│   └── files
+│       ├── bashrc
+│       ├── hadoop-env.sh
+│       ├── hbase-env.sh
+│       └── ssh_config
+├── hadoop-hbase-dnsmasq
+│   ├── dnsmasq
+│   │   ├── dnsmasq.conf
+│   │   └── resolv.dnsmasq.conf
+│   ├── Dockerfile
+│   ├── handlers
+│   │   ├── member-failed
+│   │   ├── member-join
+│   │   └── member-leave
+│   └── serf
+│       ├── event-router.sh
+│       ├── serf-config.json
+│       └── start-serf-agent.sh
+├── hadoop-hbase-master
+│   ├── Dockerfile
+│   └── files
+│       ├── hadoop
+│       │   ├── configure-slaves.sh
+│       │   ├── core-site.xml
+│       │   ├── hdfs-site.xml
+│       │   ├── mapred-site.xml
+│       │   ├── master
+│       │   ├── run-wordcount.sh
+│       │   ├── start-hadoop.sh
+│       │   ├── start-ssh-serf.sh
+│       │   └── yarn-site.xml
+│       └── hbase
+│           └── hbase-site.xml
+├── hadoop-hbase-slave
+│   ├── Dockerfile
+│   └── files
+│       ├── hadoop
+│       │   ├── core-site.xml
+│       │   ├── hdfs-site.xml
+│       │   ├── mapred-site.xml
+│       │   ├── master
+│       │   ├── start-ssh-serf.sh
+│       │   └── yarn-site.xml
+│       └── hbase
+│           └── hbase-site.xml
+├── README.md
+├── rebuild_hub.sh
+├── resize-cluster.sh
+├── build-image.sh
+└── start-container.sh
+```
+
 
 #####1] pull image
 ```
@@ -27,57 +86,7 @@ $ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
 $ cd hadoop-hbase-docker
 ```
 
-see file structure of project $ tree
-
-```
-.
-
-├── hadoop-hbase-base
-│   ├── Dockerfile
-│   └── files
-│       ├── bashrc
-│       ├── hadoop-env.sh
-│       └── ssh_config
-├── hadoop-hbase-dnsmasq
-│   ├── dnsmasq
-│   │   ├── dnsmasq.conf
-│   │   └── resolv.dnsmasq.conf
-│   ├── Dockerfile
-│   ├── handlers
-│   │   ├── member-failed
-│   │   ├── member-join
-│   │   └── member-leave
-│   └── serf
-│       ├── event-router.sh
-│       ├── serf-config.json
-│       └── start-serf-agent.sh
-├── hadoop-hbase-master
-│   ├── Dockerfile
-│   └── files
-│       ├── core-site.xml
-│       ├── hdfs-site.xml
-│       ├── mapred-site.xml
-│       ├── run-wordcount.sh
-│       ├── slaves
-│       ├── start-hadoop.sh
-│       ├── start-ssh-serf.sh
-│       └── yarn-site.xml
-├── hadoop-hbase-slave
-│   ├── Dockerfile
-│   └── files
-│       ├── core-site.xml
-│       ├── hdfs-site.xml
-│       ├── mapred-site.xml
-│       ├── start-ssh-serf.sh
-│       └── yarn-site.xml
-├── README.md
-├── rebuild_hub.sh
-├── resize-cluster.sh
-└── start-container.sh
-```
-
-
-#### Links:
+#### Sources:
 [HBASE-what is pseudo-distributed](http://archive.cloudera.com/cdh5/cdh/5/hbase-0.98.6-cdh5.3.4/book/standalone_dist.html)
 
 [Hadoop YARN installation guide](http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide/)
