@@ -2,7 +2,8 @@ FROM krejcmat/hadoop-hbase-base:latest
 MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # move all confugration files into container
-ADD files/* /tmp/
+ADD files/hadoop/* /tmp/
+ADD files/hbase/* /tmp/
 
 ENV HADOOP_INSTALL /usr/local/hadoop
 
@@ -17,7 +18,9 @@ mv /tmp/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml && \
 mv /tmp/slaves $HADOOP_INSTALL/etc/hadoop/slaves && \
 mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
 mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \ 
-mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh
+mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh && \ 
+mv /tmp/configure-slaves.sh ~/configure-slaves.sh && \ 
+mv /tmp/hbase-site.xml /usr/local/hbase/conf/hbase-site.xml
 
 RUN chmod +x ~/start-hadoop.sh && \
 chmod +x ~/run-wordcount.sh && \
