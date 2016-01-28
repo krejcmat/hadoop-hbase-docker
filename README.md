@@ -35,13 +35,14 @@ see file structure of project $ tree
 │       │   ├── core-site.xml
 │       │   ├── hdfs-site.xml
 │       │   ├── mapred-site.xml
-│       │   ├── master
 │       │   ├── run-wordcount.sh
 │       │   ├── start-hadoop.sh
 │       │   ├── start-ssh-serf.sh
+│       │   ├── stop-hadoop.sh
 │       │   └── yarn-site.xml
 │       └── hbase
-│           └── hbase-site.xml
+│           ├── hbase-site.xml
+│           └── start-hbase.sh
 ├── hadoop-hbase-slave
 │   ├── Dockerfile
 │   └── files
@@ -49,20 +50,26 @@ see file structure of project $ tree
 │       │   ├── core-site.xml
 │       │   ├── hdfs-site.xml
 │       │   ├── mapred-site.xml
-│       │   ├── master
 │       │   ├── start-ssh-serf.sh
 │       │   └── yarn-site.xml
 │       └── hbase
 │           └── hbase-site.xml
+
 ├── README.md
 ├── rebuild_hub.sh
 ├── resize-cluster.sh
 ├── build-image.sh
 └── start-container.sh
+
+```
+#####1] Clone git repository
+```
+$ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
+$ cd hadoop-hbase-docker
 ```
 
-
-#####1] pull image
+#####2] Get docker images
+######a) Download from Docker Hub
 ```
 $ docker pull krejcmat/hadoop-hbase-master:latest
 $ docker pull krejcmat/hadoop-hbase-slave:latest
@@ -70,6 +77,13 @@ $ docker pull krejcmat/hadoop-hbase-base:latest
 $ docker pull krejcmat/hadoop-hbase-dnsmasq:latest
 ```
 
+######b)Build from sources(Dockerfiles)
+```
+$ ./build-image.sh hadoop-hbase-dnsmasq
+
+```
+
+######Check images
 ```
 $ docker images
 
@@ -79,17 +93,47 @@ krejcmat/hadoop-hbase-base          latest              dccf08d8af07        5 ho
 krejcmat/hadoop-hbase-dnsmasq       latest              83bf3244df96        6 hours ago         147.9 MB
 ```
 
+#####3] Initialize Hadoop (master and slaves)
+######a)run containers
+start-container.sh script has parameter for configure number of nodes(default is 4) 
 
-#####2] clone source code
 ```
-$ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
-$ cd hadoop-hbase-docker
+$ ./start-container.sh
 ```
 
-#####Print report of nodes 
+######Check members of cluster
+```
+$ serf members
+
+```
+
+######b)Run Hadoop cluster
+
+```
+$ cd ~
+creaeting slaves configure file and hbase-site.xml(for zookeeper)
+$ ./configure-slaves
+
+$ ./start-hadoop.sh
+
+for stopping Hadoop(not now)
+$ stop-hadoop.sh
+```
+#####Print status of Hadoop cluster 
 ```
 $ hdfs dfsadmin -report
+
 ```
+
+#####3] Initialize Hbase database and run Hbase shell
+```
+$ cd ~
+$ ./start-hbase.sh
+```
+
+
+
+
 
 ####Sources:
 ######general
