@@ -29,10 +29,10 @@ mv /usr/local/bashrc ~/.bashrc && \
 mv /usr/local/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
 #install hbase 
-RUN wget -q -o /dev/null -P /tmp http://www.eu.apache.org/dist/hbase/1.1.2/hbase-1.1.2-bin.tar.gz && \
-tar xzf /tmp/hbase-1.1.2-bin.tar.gz -C /usr/local && \
-rm /tmp/hbase-1.1.2-bin.tar.gz  && \
-mv /usr/local/hbase-1.1.2 /usr/local/hbase && \
+RUN wget -q -o /dev/null -P /tmp http://www.eu.apache.org/dist/hbase/1.1.3/hbase-1.1.3-bin.tar.gz && \
+tar xzf /tmp/hbase-1.1.3-bin.tar.gz -C /usr/local && \
+rm /tmp/hbase-1.1.3-bin.tar.gz  && \
+mv /usr/local/hbase-1.1.3 /usr/local/hbase && \
 mv /usr/local/hbase-env.sh /usr/local/hbase/conf/hbase-env.sh 
 
 
