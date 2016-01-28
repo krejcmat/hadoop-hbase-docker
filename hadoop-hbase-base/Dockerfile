@@ -26,7 +26,7 @@ tar xzf /tmp/hadoop-2.7.1.tar.gz -C /usr/local && \
 rm /tmp/hadoop-2.7.1.tar.gz && \
 mv /usr/local/hadoop-2.7.1 /usr/local/hadoop && \
 mv /usr/local/bashrc ~/.bashrc && \
-mv /usr/local/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh 
+mv /usr/local/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
 mv /usr/local/hbase-env.sh /usr/local/hbase/conf/hbase-env.sh 
 
 #install hbase 
