@@ -20,7 +20,8 @@ mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
 mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh && \ 
 mv /tmp/hbase-site.xml /usr/local/hbase/conf/hbase-site.xml -f && \
 #mv /tmp/master $HADOOP_INSTALL/etc/hadoop/master
-mv /tmp/configure-slaves.sh ~/configre-slaves.sh
+mv /tmp/configure-slaves.sh ~/configure-slaves.sh
+mv /tmp/start-hbase.sh ~/start-hbase.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
 chmod +x ~/run-wordcount.sh && \
