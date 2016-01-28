@@ -26,14 +26,15 @@ tar xzf /tmp/hadoop-2.7.1.tar.gz -C /usr/local && \
 rm /tmp/hadoop-2.7.1.tar.gz && \
 mv /usr/local/hadoop-2.7.1 /usr/local/hadoop && \
 mv /usr/local/bashrc ~/.bashrc && \
-mv /usr/local/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
-mv /usr/local/hbase-env.sh /usr/local/hbase/conf/hbase-env.sh 
+mv /usr/local/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
 #install hbase 
 RUN wget -q -o /dev/null -P /tmp http://www.eu.apache.org/dist/hbase/1.1.2/hbase-1.1.2-bin.tar.gz && \
 tar xzf /tmp/hbase-1.1.2-bin.tar.gz -C /usr/local && \
 rm /tmp/hbase-1.1.2-bin.tar.gz  && \
-mv /usr/local/hbase-1.1.2 /usr/local/hbase 
+mv /usr/local/hbase-1.1.2 /usr/local/hbase && \
+mv /usr/local/hbase-env.sh /usr/local/hbase/conf/hbase-env.sh 
+
 
 RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
 rm -rf /var/lib/{apt,dpkg,cache,log}/
