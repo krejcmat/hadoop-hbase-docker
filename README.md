@@ -54,7 +54,6 @@ see file structure of project $ tree
 │       │   └── yarn-site.xml
 │       └── hbase
 │           └── hbase-site.xml
-
 ├── README.md
 ├── rebuild_hub.sh
 ├── resize-cluster.sh
@@ -68,8 +67,10 @@ $ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
 $ cd hadoop-hbase-docker
 ```
 
-#####2] Get docker images
-######a) Download from Docker Hub
+#####2] Get docker images 
+Two options how to get images are available. By pullig images directly from Doceker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory)
+
+######a) Download from Docker hub
 ```
 $ docker pull krejcmat/hadoop-hbase-master:latest
 $ docker pull krejcmat/hadoop-hbase-slave:latest
@@ -124,6 +125,10 @@ $ stop-hadoop.sh
 $ hdfs dfsadmin -report
 
 ```
+#####Print Java processes
+```
+$ jps
+```
 
 #####3] Initialize Hbase database and run Hbase shell
 ```
@@ -156,4 +161,6 @@ $ ./start-hbase.sh
 [how to make docker image smaller](http://jasonwilder.com/blog/2014/08/19/squashing-docker-images/)
 
 ######HBase db
-[python wrapper for HBASE rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
+[python wrapper for Hbase rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
+[usage of Java API for Hbase](https://autofei.wordpress.com/2012/04/02/java-example-code-using-hbase-data-model-operations/)
+[Hbase shell commands](https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/)
