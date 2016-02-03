@@ -1,6 +1,7 @@
 #!/bin/bash
 
 slaves=/tmp/slaves
+regionservers=usr/local/hbase/conf/regionservers
 hbaseconf=/usr/local/hbase/conf/hbase-site.xml
 rm -f $slaves
 touch  $slaves
@@ -22,8 +23,9 @@ function init_members(){
 
         while read -r member
         do
-                echo "copy $slaves "
-                 scp $slaves $member:$HADOOP_CONF_DIR/slaves 
+                 echo "copy $slaves "
+                 scp $slaves $member:$HADOOP_CONF_DIR/slaves
+                 scp $slaves $member:$regionservers
                  scp $hbaseconf $member:$hbaseconf
         done < "$slaves"
 }

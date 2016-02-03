@@ -120,14 +120,15 @@ $ ./start-hadoop.sh
 for stopping Hadoop(not now)
 $ stop-hadoop.sh
 ```
-#####Print status of Hadoop cluster 
+
+#####Check status
 ```
+#Print status of Hadoop cluster 
 $ hdfs dfsadmin -report
 
-```
-#####Print Java processes
-```
+#Print Java processes
 $ jps
+
 ```
 
 #####3] Initialize Hbase database and run Hbase shell
@@ -135,6 +136,13 @@ $ jps
 $ cd ~
 $ ./start-hbase.sh
 ```
+#####Check status
+```
+#Print status of Hadoop cluster 
+$ hdfs dfsadmin -report
+
+#Print Java processes
+$ jps
 
 
 
@@ -149,6 +157,8 @@ $ ./start-hbase.sh
 ######configuration
 [Hadoop YARN installation guide](http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide/)
 
+[Hbase manual](https://hbase.apache.org/book.html)
+
 [configuration hdfs-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 
 [configuration mapred-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml)
@@ -161,6 +171,28 @@ $ ./start-hbase.sh
 [how to make docker image smaller](http://jasonwilder.com/blog/2014/08/19/squashing-docker-images/)
 
 ######HBase db
+
 [python wrapper for Hbase rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
+
 [usage of Java API for Hbase](https://autofei.wordpress.com/2012/04/02/java-example-code-using-hbase-data-model-operations/)
+
 [Hbase shell commands](https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/)
+
+
+
+
+
+#####NOTES
+######Region server vs datanode 
+Data nodes store data. Region server(s) essentially buffer I/O operations; data is permanently stored on HDFS (that is, data nodes). I do not think that putting region server on your 'master' node is a good idea.
+
+Here is a simplified picture of how regions are managed:
+
+You have a cluster running HDFS (NameNode + DataNodes) with replication factor of 3 (each HDFS block is copied into 3 different DataNodes).
+
+You run RegionServers on the same servers as DataNodes. When write request comes to RegionServer it first writes changes into memory and commit log; then at some point it decides that it is time to write changes to permanent storage on HDFS. Here is were data locality comes into play: since you run RegionServer and DataNode on the same server, first HDFS block replica of the file will be written to the same server. Two other replicas will be written to, well, other DataNodes. As a result RegionServer serving the region will almost always have access to local copy of data.
+
+What if RegionServer crashes or RegionMaster decided to reassign region to another RegionServer (to keep cluster balanced)? New RegionServer will be forced to perform remote read first, but as soon as compaction is performed (merging of change log into the data) - new file will be written to HDFS by the new RegionServer, and local copy will be created on the RegionServer (again, because DataNode and RegionServer runs on the same server).
+
+Note: in case of RegionServer crash, regions previously assigned to it will be reassigned to multiple RegionServers.
+

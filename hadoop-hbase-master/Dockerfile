@@ -7,18 +7,21 @@ ADD files/hbase/* /tmp/
 
 ENV HADOOP_INSTALL /usr/local/hadoop
 
-RUN mkdir -p ~/hdfs/namenode && \ 
+RUN mkdir -p ~/hdfs/namenode && \
+mkdir -p ~/zookeeper && \ 
 mkdir -p ~/hdfs/datanode
 
 RUN mv /tmp/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml && \ 
 mv /tmp/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml && \
 mv /tmp/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml && \
 mv /tmp/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml && \
+mv /tmp/stop-hadoop.sh ~/stop-hadoop.sh && \
 mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
 mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \ 
 mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh && \ 
 mv /tmp/hbase-site.xml /usr/local/hbase/conf/hbase-site.xml -f && \
 mv /tmp/configure-slaves.sh ~/configure-slaves.sh && \
+mv /tmp/stop-hbase.sh ~/stop-hbase.sh && \
 mv /tmp/start-hbase.sh ~/start-hbase.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
