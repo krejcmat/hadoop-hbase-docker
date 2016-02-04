@@ -1,6 +1,6 @@
 # in development !!
 # hadoop-hbase-docker
-Quickly build arbitrary size Hadoop Cluster based on Docker includes Hbase database system
+Quickly build arbitrary size Hadoop Cluster based on Docker includes HBase database system
 ------
 
 ######See file structure of project 
@@ -73,7 +73,7 @@ $ cd hadoop-hbase-docker
 ```
 
 ####2] Get docker images 
-Two options how to get images are available. By pullig images directly from Doceker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Due to quees on DockerHub is recomanded to build images localy( b)Build from sources).
+Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Due to queues on DockerHub is recommended to build images locally( b)Build from sources).
 
 ######a) Download from Docker hub
 ```
@@ -193,11 +193,11 @@ Starting secondary namenodes [0.0.0.0]
 0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-root-secondarynamenode-master.krejcmat.com.out
 
 starting yarn daemons
-starting resourcemanager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
+starting resource manager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
 master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
 slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
-slave1.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-slave1.krejcmat.com.out
-master.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-master.krejcmat.com.out
+slave1.krejcmat.com: starting node manager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-slave1.krejcmat.com.out
+master.krejcmat.com: starting node manager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-master.krejcmat.com.out
 ```
 
 ######Starting Hadoop
@@ -217,7 +217,7 @@ Starting secondary namenodes [0.0.0.0]
 0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-root-secondarynamenode-master.krejcmat.com.out
 
 starting yarn daemons
-starting resourcemanager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
+starting resource manager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
 master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
 slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
 slave1.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-slave1.krejcmat.com.out
@@ -242,7 +242,7 @@ $ ./start-hbase.sh
 ```
 $ create 'album','label','image'
 ```
-Now you have a table called album, with a label, and a image family. These families are “static” like the columns in the RDBMS world.
+Now you have a table called album, with a label, and an image family. These families are “static” like the columns in the RDBMS world.
 
 Add some data:
 ```
@@ -267,7 +267,45 @@ label:text                                          timestamp=1454590583786, val
 ```
 
 
-####Sources:
+####3]Control cluster from web UI
+######Overview of UI web ports
+| web ui           | port       |
+| ---------------- |:----------:| 
+| Hadoop namenode  | 50070      |
+| Hadoop cluster   | 8088       |
+| Hbase            | 60010      |
+
+
+######Access from parent computer of docker container
+Check IP addres in master container
+```
+$ ip a
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN 
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+4: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP 
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:acff:fe11:2/64 scope link 
+       valid_lft forever preferred_lft forever
+
+```
+so your IP address is 172.17.0.2
+
+```
+$ xdg-open http://172.17.0.2:8088/
+```
+######Direct access from container(not implemented)
+Used Linux distribution is installed without graphical UI. Easiest way is to use another Unix distribution by modifying Dockerfile of hadoop-hbase-dnsmasq and rebuild images. In this case start-container.sh script must be modified. On the line where the master container is created must add parameters for [X forwarding](http://wiki.ros.org/docker/Tutorials/GUI). 
+
+
+
+####Sources & references
 ######general
 [HBASE-what is pseudo-distributed](http://archive.cloudera.com/cdh5/cdh/5/hbase-0.98.6-cdh5.3.4/book/standalone_dist.html)
 
@@ -293,7 +331,7 @@ label:text                                          timestamp=1454590583786, val
 
 ######HBase db
 
-[python wrapper for Hbase rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
+[python wrapper for HBase rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
 
 [usage of Java API for Hbase](https://autofei.wordpress.com/2012/04/02/java-example-code-using-hbase-data-model-operations/)
 
@@ -302,54 +340,17 @@ label:text                                          timestamp=1454590583786, val
 
 
 
-####3]Control cluster from web UI
-######Overview of UI web ports
-| web ui           | port       |
-| ---------------- |:----------:| 
-| Hadoop namenode  | 50070      |
-| Hadoop cluster   | 8088       |
-| Hbase            | 60010      |
-
-
-######Access from parent computer of docker container
-Check ip addres in master container
-```
-$ ip a
-
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN 
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
-       valid_lft forever preferred_lft forever
-4: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP 
-    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
-    inet 172.17.0.2/16 scope global eth0
-       valid_lft forever preferred_lft forever
-    inet6 fe80::42:acff:fe11:2/64 scope link 
-       valid_lft forever preferred_lft forever
-
-```
-so your ip address is 172.17.0.2
-
-```
-$ xdg-open http://172.17.0.2:8088/
-```
-######Direct access from container(not implemented)
-Used Linux distribution is installed without graphical UI. Easyest way is to use another unix distribution by modifying Dockerfile of hadoop-hbase-dnsmasq and rebuild images. In this case start-container.sh script must be modified. On line where master container is created must be add parameters for [X forwarding](http://wiki.ros.org/docker/Tutorials/GUI). 
-
-
 #####Some notes, answers
 ######Region server vs datanode 
 Data nodes store data. Region server(s) essentially buffer I/O operations; data is permanently stored on HDFS (that is, data nodes). I do not think that putting region server on your 'master' node is a good idea.
 
 Here is a simplified picture of how regions are managed:
 
-You have a cluster running HDFS (NameNode + DataNodes) with replication factor of 3 (each HDFS block is copied into 3 different DataNodes).
+You have a cluster running HDFS (NameNode + DataNodes) with a replication factor of 3 (each HDFS block is copied into 3 different DataNodes).
 
-You run RegionServers on the same servers as DataNodes. When write request comes to RegionServer it first writes changes into memory and commit log; then at some point it decides that it is time to write changes to permanent storage on HDFS. Here is were data locality comes into play: since you run RegionServer and DataNode on the same server, first HDFS block replica of the file will be written to the same server. Two other replicas will be written to, well, other DataNodes. As a result RegionServer serving the region will almost always have access to local copy of data.
+You run RegionServers on the same servers as DataNodes. When write request comes to RegionServer it first writes changes into memory and commit log; then at some point, it decides that it is time to write changes to permanent storage on HDFS. Here is where data locality comes into play: since you run RegionServer and DataNode on the same server, first HDFS block replica of the file will be written to the same server. Two other replicas will be written to, well, other DataNodes. As a result, RegionServer serving the region will almost always have access to a local copy of data.
 
 What if RegionServer crashes or RegionMaster decided to reassign region to another RegionServer (to keep cluster balanced)? New RegionServer will be forced to perform remote read first, but as soon as compaction is performed (merging of change log into the data) - new file will be written to HDFS by the new RegionServer, and local copy will be created on the RegionServer (again, because DataNode and RegionServer runs on the same server).
 
-Note: in case of RegionServer crash, regions previously assigned to it will be reassigned to multiple RegionServers.
+Note: in the case of RegionServer crash, regions previously assigned to it will be reassigned to multiple RegionServers.
 
