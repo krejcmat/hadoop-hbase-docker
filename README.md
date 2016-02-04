@@ -1,8 +1,7 @@
-# in development !!
 # hadoop-hbase-docker
 Quickly build arbitrary size Hadoop Cluster based on Docker includes HBase database system
 ------
-
+Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker file. Hadoop configuration is rewritten and HBase support has been added. As UNIX system is used [Debian wheezy minimalistic](https://hub.docker.com/r/philcryer/min-wheezy/) instead of Ubuntu. Hadoop is setup as fully distributed cluster whit YARN. For handling HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management.
 ######See file structure of project 
 ```
 $ tree
@@ -225,7 +224,7 @@ master.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yar
 ```
 
 ####3] Initialize Hbase database and run Hbase shell
-Start HBase
+######Start HBase
 ```
 $ cd ~
 $ ./start-hbase.sh
