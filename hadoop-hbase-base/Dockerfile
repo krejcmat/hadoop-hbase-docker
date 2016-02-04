@@ -35,6 +35,5 @@ rm /tmp/hbase-1.1.3-bin.tar.gz  && \
 mv /usr/local/hbase-1.1.3 /usr/local/hbase && \
 mv /usr/local/hbase-env.sh /usr/local/hbase/conf/hbase-env.sh 
 
-
 RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
 rm -rf /var/lib/{apt,dpkg,cache,log}/
