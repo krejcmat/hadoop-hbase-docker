@@ -225,6 +225,7 @@ master.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yar
 ```
 
 ####3] Initialize Hbase database and run Hbase shell
+Start HBase
 ```
 $ cd ~
 $ ./start-hbase.sh
@@ -305,18 +306,12 @@ Used Linux distribution is installed without graphical UI. Easiest way is to use
 
 
 
-####Sources & references
-######general
-[HBASE-what is pseudo-distributed](http://archive.cloudera.com/cdh5/cdh/5/hbase-0.98.6-cdh5.3.4/book/standalone_dist.html)
-
-[Docker cheat sheet](https://github.com/wsargent/docker-cheat-sheet)
-
-[SERF: tool for cluster membership](https://www.serfdom.io/intro/)
+###Sources & references
 
 ######configuration
 [Hadoop YARN installation guide](http://www.alexjf.net/blog/distributed-systems/hadoop-yarn-installation-definitive-guide/)
 
-[Hbase manual](https://hbase.apache.org/book.html)
+[Hbase main manual](https://hbase.apache.org/book.html)
 
 [configuration hdfs-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
 
@@ -327,17 +322,20 @@ Used Linux distribution is installed without graphical UI. Easiest way is to use
 [configuration core-site.xml](http://doc.mapr.com/display/MapR/Default+core+Parameters)
 
 ######docker
+[Docker cheat sheet](https://github.com/wsargent/docker-cheat-sheet)
+
 [how to make docker image smaller](http://jasonwilder.com/blog/2014/08/19/squashing-docker-images/)
 
-######HBase db
 
+######HBase usage
 [python wrapper for HBase rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
 
 [usage of Java API for Hbase](https://autofei.wordpress.com/2012/04/02/java-example-code-using-hbase-data-model-operations/)
 
 [Hbase shell commands](https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/)
 
-
+######others
+[SERF: tool for cluster membership](https://www.serfdom.io/intro/)
 
 
 #####Some notes, answers
