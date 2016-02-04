@@ -61,14 +61,14 @@ see file structure of project $ tree
 └── start-container.sh
 
 ```
-#####1] Clone git repository
+####1] Clone git repository
 ```
 $ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
 $ cd hadoop-hbase-docker
 ```
 
-#####2] Get docker images 
-Two options how to get images are available. By pullig images directly from Doceker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory)
+####2] Get docker images 
+Two options how to get images are available. By pullig images directly from Doceker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Due to quees on DockerHub is recomanded to build images localy( b)Build from sources).
 
 ######a) Download from Docker hub
 ```
@@ -81,7 +81,6 @@ $ docker pull krejcmat/hadoop-hbase-dnsmasq:latest
 ######b)Build from sources(Dockerfiles)
 ```
 $ ./build-image.sh hadoop-hbase-dnsmasq
-
 ```
 
 ######Check images
@@ -94,55 +93,132 @@ krejcmat/hadoop-hbase-base          latest              dccf08d8af07        5 ho
 krejcmat/hadoop-hbase-dnsmasq       latest              83bf3244df96        6 hours ago         147.9 MB
 ```
 
-#####3] Initialize Hadoop (master and slaves)
+####3] Initialize Hadoop (master and slaves)
 ######a)run containers
 start-container.sh script has parameter for configure number of nodes(default is 4) 
 
 ```
-$ ./start-container.sh
+$ ./start-container.sh 2
+
+start master container...
+start slave1 container...
 ```
 
+#####Check status
 ######Check members of cluster
 ```
 $ serf members
 
+master.krejcmat.com  172.17.0.2:7946  alive  
+slave1.krejcmat.com  172.17.0.3:7946  alive
 ```
 
-######b)Run Hadoop cluster
-
+######Print Java processes
 ```
-$ cd ~
-creaeting slaves configure file and hbase-site.xml(for zookeeper)
-$ ./configure-slaves
-
-$ ./start-hadoop.sh
-
-for stopping Hadoop(not now)
-$ stop-hadoop.sh
-```
-
-#####Check status
-```
-#Print status of Hadoop cluster 
-$ hdfs dfsadmin -report
-
-#Print Java processes
 $ jps
 
+342 NameNode
+460 DataNode
+1156 Jps
+615 SecondaryNameNode
+769 ResourceManager
+862 NodeManager
 ```
 
-#####3] Initialize Hbase database and run Hbase shell
+######Print status of Hadoop cluster 
+```
+$ hdfs dfsadmin -report
+
+Name: 172.17.0.2:50010 (master.krejcmat.com)
+Hostname: master.krejcmat.com
+Decommission Status : Normal
+Configured Capacity: 98293264384 (91.54 GB)
+DFS Used: 24576 (24 KB)
+Non DFS Used: 77983322112 (72.63 GB)
+DFS Remaining: 20309917696 (18.92 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 20.66%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Wed Feb 03 16:09:14 UTC 2016
+
+Name: 172.17.0.3:50010 (slave1.krejcmat.com)
+Hostname: slave1.krejcmat.com
+Decommission Status : Normal
+Configured Capacity: 98293264384 (91.54 GB)
+DFS Used: 24576 (24 KB)
+Non DFS Used: 77983322112 (72.63 GB)
+DFS Remaining: 20309917696 (18.92 GB)
+DFS Used%: 0.00%
+DFS Remaining%: 20.66%
+Configured Cache Capacity: 0 (0 B)
+Cache Used: 0 (0 B)
+Cache Remaining: 0 (0 B)
+Cache Used%: 100.00%
+Cache Remaining%: 0.00%
+Xceivers: 1
+Last contact: Wed Feb 03 16:09:14 UTC 2016
+```
+
+#####b)Run Hadoop cluster
+######Creating configures file for Hadoop and Hbase(includes zookeeper)
+```
+$ cd ~
+$ ./configure-slaves.sh
+
+Starting namenodes on [master.krejcmat.com]
+master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
+master.krejcmat.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-root-namenode-master.krejcmat.com.out
+slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
+master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
+slave1.krejcmat.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-root-datanode-slave1.krejcmat.com.out
+master.krejcmat.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-root-datanode-master.krejcmat.com.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: Warning: Permanently added '0.0.0.0' (ECDSA) to the list of known hosts.
+0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-root-secondarynamenode-master.krejcmat.com.out
+
+starting yarn daemons
+starting resourcemanager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
+master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
+slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
+slave1.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-slave1.krejcmat.com.out
+master.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-master.krejcmat.com.out
+```
+
+######Starting Hadoop
+```
+$ ./start-hadoop.sh 
+ #For stop Hadoop ./stop-hadoop.sh
+
+Starting namenodes on [master.krejcmat.com]
+master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
+master.krejcmat.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-root-namenode-master.krejcmat.com.out
+slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
+master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
+slave1.krejcmat.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-root-datanode-slave1.krejcmat.com.out
+master.krejcmat.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-root-datanode-master.krejcmat.com.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: Warning: Permanently added '0.0.0.0' (ECDSA) to the list of known hosts.
+0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-root-secondarynamenode-master.krejcmat.com.out
+
+starting yarn daemons
+starting resourcemanager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
+master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
+slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
+slave1.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-slave1.krejcmat.com.out
+master.krejcmat.com: starting nodemanager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-master.krejcmat.com.out
+
+```
+
+####3] Initialize Hbase database and run Hbase shell
 ```
 $ cd ~
 $ ./start-hbase.sh
 ```
-#####Check status
-```
-#Print status of Hadoop cluster 
-$ hdfs dfsadmin -report
-
-#Print Java processes
-$ jps
 
 
 
