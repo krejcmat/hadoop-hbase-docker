@@ -3,7 +3,7 @@ MAINTAINER krejcmat <matejkrejci@gmail.com>
 
 # install openssh-server, vim and openjdk
 RUN apt-get update
-RUN apt-get install -y openssh-server vim wget
+RUN apt-get install -y openssh-server nano
 RUN apt-get install -y openjdk-7-jdk 
 
 # move all configuration files into container

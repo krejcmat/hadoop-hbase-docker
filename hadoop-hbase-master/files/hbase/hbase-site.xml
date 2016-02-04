@@ -9,8 +9,13 @@
    </property>
    <property>
       <name>hbase.master</name>
-      <value>hdfs://master.krejcmat.com:60000</value>
+      <value>master.krejcmat.com:60000</value>
       <description>The host and port that the HBase master runs at.</description>
+   </property>
+   <property>
+      <name>hbase.master.info.port</name>
+      <value>60010</value>
+      <description>The UI interface of HBase master runs.</description>
    </property>
    <property>
       <name>hbase.cluster.distributed</name>

@@ -6,7 +6,7 @@ tag="latest"
 # the defaut node number is 4
 if [ $# = 0 ]
 then
-	N=4
+	N=2
 fi
 
 # delete old master container and start new master container

@@ -9,16 +9,16 @@ rm -rf /var/cache/debconf/*-old && rm -rf /var/lib/apt/lists/* && rm -rf /usr/sh
 apt-get update -y && \
 echo "`cat /etc/issue.net` Docker Image - philcryer/min-wheezy - `date +'%Y/%m/%d'`" > /etc/motd
 
-RUN apt-get install -y unzip curl dnsmasq
+RUN apt-get install -y unzip dnsmasq wget
 
 # dnsmasq configuration
 ADD dnsmasq/* /etc/
 
 # install serf
-RUN curl -Lso serf.zip https://dl.bintray.com/mitchellh/serf/0.5.0_linux_amd64.zip && \
+RUN wget -q -o /dev/null -P /tmp/ https://dl.bintray.com/mitchellh/serf/0.5.0_linux_amd64.zip && \
 rm -fr /bin/serf
-RUN unzip serf.zip -d /bin && \
-rm serf.zip
+RUN unzip /tmp/0.5.0_linux_amd64.zip -d /bin && \
+rm /tmp/0.5.0_linux_amd64.zip
 
 # configure serf
 ENV SERF_CONFIG_DIR /etc/serf

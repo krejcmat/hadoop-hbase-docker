@@ -9,3 +9,5 @@ export HADOOP_HDFS_HOME=$HADOOP_INSTALL
 export HADOOP_CONF_DIR=$HADOOP_INSTALL/etc/hadoop   
 export YARN_HOME=$HADOOP_INSTALL
 export YARN_CONF_DIR=$HADOOP_INSTALL/etc/hadoop
+
+export PATH=$PATH:/usr/local/hbase/bin
