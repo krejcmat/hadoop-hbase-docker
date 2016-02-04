@@ -3,7 +3,7 @@ Quickly build arbitrary size Hadoop Cluster based on Docker includes HBase datab
 ------
 Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker file. Hadoop version is upgraded and its configuration is partly rewritten. In addition HBase support has been added. As UNIX system is used [Debian wheezy minimalistic](https://hub.docker.com/r/philcryer/min-wheezy/) instead of Ubuntu. Hadoop is setup as fully distributed cluster with YARN. For handling HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include). Docker images are not squashed and space for size optimalization is there.
 
-######Version of products are bellow
+######Version of products
 | system          | version    | 
 | ----------------|:----------:| 
 | Hadoop          | 2.71       |
@@ -116,7 +116,7 @@ docker rmi 7e099e626904 05cc7c47da70 d196b785d987
 ######a)run containers
 The first parameter of start-container.sh script configures number of nodes(default is 2) 
 ```
-$ ./start-container.sh 2
+$ ./start-container.sh 
 
 start master container...
 start slave1 container...
@@ -188,23 +188,12 @@ Last contact: Wed Feb 03 16:09:14 UTC 2016
 $ cd ~
 $ ./configure-slaves.sh
 
-Starting namenodes on [master.krejcmat.com]
-master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
-master.krejcmat.com: starting namenode, logging to /usr/local/hadoop/logs/hadoop-root-namenode-master.krejcmat.com.out
-slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
-master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
-slave1.krejcmat.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-root-datanode-slave1.krejcmat.com.out
-master.krejcmat.com: starting datanode, logging to /usr/local/hadoop/logs/hadoop-root-datanode-master.krejcmat.com.out
-Starting secondary namenodes [0.0.0.0]
-0.0.0.0: Warning: Permanently added '0.0.0.0' (ECDSA) to the list of known hosts.
-0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/logs/hadoop-root-secondarynamenode-master.krejcmat.com.out
-
-starting yarn daemons
-starting resource manager, logging to /usr/local/hadoop/logs/yarn--resourcemanager-master.krejcmat.com.out
-master.krejcmat.com: Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.
-slave1.krejcmat.com: Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.
-slave1.krejcmat.com: starting node manager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-slave1.krejcmat.com.out
-master.krejcmat.com: starting node manager, logging to /usr/local/hadoop/logs/yarn-root-nodemanager-master.krejcmat.com.out
+Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.slaves          100%     40     0.0KB/s   00:00    
+Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.slaves          100%     40     0.0KB/s   00:00    
+Warning: Permanently added 'slave1.krejcmat.com,172.17.0.3' (ECDSA) to the list of known hosts.hbase-site.xml  100%   1730     1.7KB/s   00:00    
+Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.slaves          100%     40     0.0KB/s   00:00    
+Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.slaves          100%     40     0.0KB/s   00:00    
+Warning: Permanently added 'master.krejcmat.com,172.17.0.2' (ECDSA) to the list of known hosts.hbase-site.xml  100%    1730    1.7KB/s  00:00    
 ```
 
 ######Starting Hadoop
@@ -345,7 +334,7 @@ Used Linux distribution is installed without graphical UI. Easiest way is to use
 [SERF: tool for cluster membership](https://www.serfdom.io/intro/)
 
 
-#####Some notes, answers
+###Some notes, answers
 ######Region server vs datanode 
 Data nodes store data. Region server(s) essentially buffer I/O operations; data is permanently stored on HDFS (that is, data nodes). I do not think that putting region server on your 'master' node is a good idea.
 
