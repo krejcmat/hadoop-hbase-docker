@@ -1,4 +1,4 @@
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
+export JAVA_HOME=/opt/jdk 
 export HADOOP_INSTALL=/usr/local/hadoop 
 export HADOOP_HOME=$HADOOP_INSTALL 
 export PATH=$PATH:$HADOOP_INSTALL/bin  
