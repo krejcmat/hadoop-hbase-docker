@@ -1,14 +1,14 @@
 #!/bin/bash
 
 image=$1
-tag="latest"
+tag='latest'
 
-if [ $# = 0 ]
+
+if [ $1 = 0 ]
 then
-	echo "Please use image name as the argument!"
+	echo "Please use image name as the first argument!"
 	exit 1
 fi
-
 
 # founction for delete images
 function docker_rmi()
@@ -27,12 +27,12 @@ function docker_build()
 	cd ..
 }
 
-
 echo -e "\ndocker rm -f slave1 slave2 master"
 sudo docker rm -f slave1 slave2 master
 
 sudo docker images >images.txt
 
+#all image is based on dnsmasq. master and slaves are based on base image.
 if [ $image == "hadoop-hbase-dnsmasq" ]
 then
 	docker_rmi hadoop-hbase-master
