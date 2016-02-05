@@ -8,7 +8,9 @@ Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker 
 | ----------------|:----------:| 
 | Hadoop          | 2.71       |
 | HBase           | 1.1.3      |
-Used versions are officially compatible and fully tested.
+| Java            | JDK 7.60.19|
+
+Used versions of Hadoop and HBase are officially compatible and fully tested.
 
 ######See file structure of project 
 ```
@@ -307,8 +309,6 @@ Used Linux distribution is installed without graphical UI. Easiest way is to use
 ###Documentation
 ####hadoop-hbase-dnsmasq
 Base image for all the others. Dockerfile of dnsmaq provide image build based on Debian wheezy minimalistic and (Serf)[https://www.serfdom.io/] which is solution for cluster membership. Serf is also workaround for problem with  **/etc/hosts** which is readonly in docker containers. With starting docker container instance the reference is pass as: ```docker run -h -dns <IP_OF_DNS>```. Advantage of usage **Serf** is handling cluster, like nodes joining, leaving, failing. Configuration scripts are used from [Docker container Serf/Dnsmasq](https://github.com/jai11/docker-serf)
-
-
 
 
 ###Sources & references
