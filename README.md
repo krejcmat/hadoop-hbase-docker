@@ -1,7 +1,7 @@
 # hadoop-hbase-docker
 Quickly build arbitrary size Hadoop Cluster based on Docker includes HBase database system
 ------
-Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker file. Hadoop version is upgraded and its configuration is partly rewritten. In addition HBase support has been added. As UNIX system is used [Debian wheezy minimalistic](https://hub.docker.com/r/philcryer/min-wheezy/) instead of Ubuntu. Hadoop is setup as fully distributed cluster with YARN. As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include). Docker images are not squashed and space for size optimalization is open.
+Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker file. Hadoop version is upgraded and its configuration is partly rewritten. In addition HBase support has been added. As UNIX system is used [Debian wheezy minimalistic](https://hub.docker.com/r/philcryer/min-wheezy/) instead of Ubuntu. Hadoop is setup as fully distributed cluster with YARN. As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include). Size of docker images was reduced but but there is still room for optimizing. [Squash utility](https://github.com/jwilder/docker-squash) used during optimization reduced only approx. 30Mb. The method is not used due to losing information of docker image layers. 
 
 ######Version of products
 | system          | version    | 
@@ -73,6 +73,8 @@ $ tree
 
 
 ```
+
+###Usage
 ####1] Clone git repository
 ```
 $ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
@@ -80,17 +82,18 @@ $ cd hadoop-hbase-docker
 ```
 
 ####2] Get docker images 
-Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Due to queues on DockerHub is recommended to build images locally( b)Build from sources).
+Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Triggers are setuped for tag:latest. Below is example of stable version krejcmat/hadoop-hbase*:0.1 
 
 ######a) Download from Docker hub
 ```
-$ docker pull krejcmat/hadoop-hbase-master:latest
-$ docker pull krejcmat/hadoop-hbase-slave:latest
-$ docker pull krejcmat/hadoop-hbase-base:latest
-$ docker pull krejcmat/hadoop-hbase-dnsmasq:latest
+$ docker pull krejcmat/hadoop-hbase-master:0.1
+$ docker pull krejcmat/hadoop-hbase-slave:0.1
+$ docker pull krejcmat/hadoop-hbase-base:0.1
+$ docker pull krejcmat/hadoop-hbase-dnsmasq:0.1
 ```
 
 ######b)Build from sources(Dockerfiles)
+The first argument of the script for bulilds is must be folder with Dockerfile.
 ```
 $ ./build-image.sh hadoop-hbase-dnsmasq
 ```
@@ -99,16 +102,16 @@ $ ./build-image.sh hadoop-hbase-dnsmasq
 ```
 $ docker images
 
-krejcmat/hadoop-hbase-slave     latest              d6efca926c00        Less than a second ago   1.302 GB
-krejcmat/hadoop-hbase-master    latest              f76d1546b383        3 seconds ago            1.302 GB
-krejcmat/hadoop-hbase-base      latest              7e099e626904        17 seconds ago           1.302 GB
-krejcmat/hadoop-hbase-dnsmasq   latest              05cc7c47da70        5 minutes ago            166.1 MB
-philcryer/min-wheezy            latest              d196b785d987        14 months ago            50.76 MB
+krejcmat/hadoop-hbase-slave     0.1                 3618648042c7        58 minutes ago      1.09 GB
+krejcmat/hadoop-hbase-master    0.1                 0e04fbcdd9fa        58 minutes ago      1.09 GB
+krejcmat/hadoop-hbase-base      0.1                 e148f587cc4f        59 minutes ago      1.09 GB
+krejcmat/hadoop-hbase-dnsmasq   0.1                 c4c4000322cf        About an hour ago   157.4 MB
+philcryer/min-wheezy            latest              d196b785d987        14 months ago       50.76 MB
 ```
 images:
-philcryer/min-wheezy, krejcmat/hadoop-hbase-dnsmasq, krejcmat/hadoop-hbase-base are only temporary for builds. Its not neccessary hold them. For removing(this case) use command:
+philcryer/min-wheezy, krejcmat/hadoop-hbase-dnsmasq, krejcmat/hadoop-hbase-base are only temporary for builds. For removing use command:
 ```
-docker rmi 7e099e626904 05cc7c47da70 d196b785d987
+$ docker rmi 7e099e626904 05cc7c47da70 d196b785d987
 ``` 
 
 
@@ -301,6 +304,12 @@ $ xdg-open http://172.17.0.2:8088/
 Used Linux distribution is installed without graphical UI. Easiest way is to use another Unix distribution by modifying Dockerfile of hadoop-hbase-dnsmasq and rebuild images. In this case start-container.sh script must be modified. On the line where the master container is created must add parameters for [X forwarding](http://wiki.ros.org/docker/Tutorials/GUI). 
 
 
+###Documentation
+####hadoop-hbase-dnsmasq
+Base image for all the others. Dockerfile of dnsmaq provide image build based on Debian wheezy minimalistic and (Serf)[https://www.serfdom.io/] which is solution for cluster membership. Serf is also workaround for problem with  **/etc/hosts** which is readonly in docker containers. With starting docker container instance the reference is pass as: ```docker run -h -dns <IP_OF_DNS>```. Advantage of usage **Serf** is handling cluster, like nodes joining, leaving, failing. Configuration scripts are used from [Docker container Serf/Dnsmasq](https://github.com/jai11/docker-serf)
+
+
+
 
 ###Sources & references
 
@@ -309,13 +318,6 @@ Used Linux distribution is installed without graphical UI. Easiest way is to use
 
 [Hbase main manual](https://hbase.apache.org/book.html)
 
-[configuration hdfs-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml)
-
-[configuration mapred-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml)
-
-[configuration yarn-default.xml](https://hadoop.apache.org/docs/r2.7.1/hadoop-yarn/hadoop-yarn-common/yarn-default.xml)
-
-[configuration core-site.xml](http://doc.mapr.com/display/MapR/Default+core+Parameters)
 
 ######docker
 [Docker cheat sheet](https://github.com/wsargent/docker-cheat-sheet)
@@ -330,9 +332,12 @@ Used Linux distribution is installed without graphical UI. Easiest way is to use
 
 [Hbase shell commands](https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/)
 
-######others
+######Serf
 [SERF: tool for cluster membership](https://www.serfdom.io/intro/)
 
+[Serf docker presentation from Hadoop summit14](http://www.slideshare.net/JanosMatyas/docker-based-hadoop-provisioning)
+
+[Docker Serf/Dnsmasq](https://github.com/jai11/docker-serf)
 
 ###Some notes, answers
 ######Region server vs datanode 
