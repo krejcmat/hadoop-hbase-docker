@@ -84,7 +84,7 @@ $ cd hadoop-hbase-docker
 ```
 
 ####2] Get docker images 
-Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Triggers are setuped for tag:latest. Below is example of stable version krejcmat/hadoop-hbase*:0.1 
+Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Triggers are setuped for tag:latest. Below is example of stable version krejcmat/hadoop-hbase-<>:0.1 
 
 ######a) Download from Docker hub
 ```
@@ -119,9 +119,9 @@ $ docker rmi c4c4000322cf e148f587cc4f d196b785d987
 
 ####3] Initialize Hadoop (master and slaves)
 ######a)run containers
-The first parameter of start-container.sh script configures number of nodes(default is 2) 
+The first parameter of start-container.sh script is tag of image version, second parameter configuring number of nodes.
 ```
-$ ./start-container.sh 
+$ ./start-container.sh 0.1 2
 
 start master container...
 start slave1 container...

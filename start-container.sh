@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # run N slave containers
-N=$1
-tag="latest"
-# the defaut node number is 2
-if [ $# = 0 ]
+tag=$1
+N=$2
+
+if [ $# != 2  ]
 then
-	N=2
+	echo "Set first parametar as image version tag(e.g. 0.1) and second as number of nodes"
+	exit 1
 fi
 
 # delete old master container and start new master container
