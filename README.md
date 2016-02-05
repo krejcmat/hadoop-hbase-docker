@@ -113,7 +113,7 @@ philcryer/min-wheezy            latest              d196b785d987        14 month
 images:
 philcryer/min-wheezy, krejcmat/hadoop-hbase-dnsmasq, krejcmat/hadoop-hbase-base are only temporary for builds. For removing use command:
 ```
-$ docker rmi 7e099e626904 05cc7c47da70 d196b785d987
+$ docker rmi c4c4000322cf e148f587cc4f d196b785d987
 ``` 
 
 
