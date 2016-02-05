@@ -3,7 +3,7 @@
 # run N slave containers
 N=$1
 tag="latest"
-# the defaut node number is 4
+# the defaut node number is 2
 if [ $# = 0 ]
 then
 	N=2
