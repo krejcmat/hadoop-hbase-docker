@@ -1,7 +1,7 @@
 # hadoop-hbase-docker
 Quickly build arbitrary size Hadoop Cluster based on Docker includes HBase database system
 ------
-Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker file. Hadoop version is upgraded and its configuration is partly rewritten. In addition HBase support has been added. As UNIX system is used [Debian wheezy minimalistic](https://hub.docker.com/r/philcryer/min-wheezy/) instead of Ubuntu. Hadoop is setup as fully distributed cluster with YARN. As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include). Size of docker images was reduced but but there is still room for optimizing. [Squash utility](https://github.com/jwilder/docker-squash) used during optimization reduced only approx. 30Mb. The method is not used due to losing information of docker image layers. 
+Core of this project is based on [kiwenlau](https://github.com/kiwenlau) and [Serf](https://github.com/jai11/docker-serf) docker file. Hadoop version is upgraded and its configuration is partly rewritten. In addition HBase support has been added. As UNIX system is used [Debian wheezy minimalistic](https://hub.docker.com/r/philcryer/min-wheezy/) instead of Ubuntu. Hadoop is setup as fully distributed cluster with YARN. As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include). Size of docker images was reduced but but there is still room for optimizing. [Squash utility](https://github.com/jwilder/docker-squash) during optimization reduced only approx. 30Mb. The method is not used due to losing information of docker image layers. 
 
 ######Version of products
 | system          | version    | 
@@ -10,7 +10,7 @@ Core of this project is based on [kiwenlau](https://github.com/kiwenlau) docker 
 | HBase           | 1.1.3      |
 | Java            | JDK 7.60.19|
 
-Used versions of Hadoop and HBase are officially compatible and fully tested.
+Used versions of Hadoop and HBase are officially compatible - fully tested.
 
 ######See file structure of project 
 ```
@@ -84,7 +84,7 @@ $ cd hadoop-hbase-docker
 ```
 
 ####2] Get docker images 
-Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Triggers are setuped for tag:latest. Below is example of stable version krejcmat/hadoop-hbase-<>:0.1 
+Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Triggers are setuped for tag:latest. Below is example of stable version krejcmat/hadoop-hbase-<>:0.1. Version krejcmat/hadoop-hbase-<>:latest is compiled on DockerHub from master branche on GitHub.
 
 ######a) Download from Docker hub
 ```
@@ -95,7 +95,7 @@ $ docker pull krejcmat/hadoop-hbase-dnsmasq:0.1
 ```
 
 ######b)Build from sources(Dockerfiles)
-The first argument of the script for bulilds is must be folder with Dockerfile.
+The first argument of the script for bulilds is must be folder with Dockerfile. Tag for sources is **latest**
 ```
 $ ./build-image.sh hadoop-hbase-dnsmasq
 ```
