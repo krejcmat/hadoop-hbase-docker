@@ -33,17 +33,7 @@ sudo docker rm -f slave1 slave2 master
 sudo docker images >images.txt
 
 #all image is based on dnsmasq. master and slaves are based on base image.
-if [ $image == "hadoop-hbase-dnsmasq" ]
-then
-	docker_rmi hadoop-hbase-master
-	docker_rmi hadoop-hbase-slave
-	docker_rmi hadoop-hbase-base
-	docker_rmi hadoop-hbase-dnsmasq
-	docker_build hadoop-hbase-dnsmasq
-	docker_build hadoop-hbase-base
-	docker_build hadoop-hbase-master
-	docker_build hadoop-hbase-slave 
-elif [ $image == "hadoop-hbase-base" ]
+if [ $image == "hadoop-hbase-base" ]
 then
 	docker_rmi hadoop-hbase-master
 	docker_rmi hadoop-hbase-slave

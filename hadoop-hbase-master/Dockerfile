@@ -20,7 +20,7 @@ mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
 mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \ 
 mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh && \ 
 mv /tmp/hbase-site.xml /usr/local/hbase/conf/hbase-site.xml -f && \
-mv /tmp/configure-slaves.sh ~/configure-slaves.sh && \
+mv /tmp/configure-members.sh ~/configure-members.sh && \
 mv /tmp/stop-hbase.sh ~/stop-hbase.sh && \
 mv /tmp/start-hbase.sh ~/start-hbase.sh
 

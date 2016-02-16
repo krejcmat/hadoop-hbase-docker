@@ -12,4 +12,4 @@ sleep 5
 
 serf members
 
-echo -e "\nhadoop-cluster-docker developed by Kiwenlau <krejcmat@gmail.com>"
+echo -e "\nhadoop-cluster-docker developed by krejcmat <krejcmat@gmail.com>"
