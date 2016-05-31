@@ -27,8 +27,8 @@ function docker_build()
 	cd ..
 }
 
-echo -e "\ndocker rm -f slave1 slave2 master"
-sudo docker rm -f slave1 slave2 master
+echo -e "\ndocker rm -f slave1.krejcmat.com slave2.krejcmat.com master.krejcmat.com"
+sudo docker rm -f slave1.krejcmat.com slave2.krejcmat.com master.krejcmat.com
 
 sudo docker images >images.txt
 
