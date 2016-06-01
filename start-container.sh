@@ -16,7 +16,7 @@ echo "start master container..."
 sudo docker run -d -t --dns 127.0.0.1 -P --name master.krejcmat.com -h master.krejcmat.com -w /root krejcmat/hadoop-hbase-master:$tag&> /dev/null
 
 # get the IP address of master container
-FIRST_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" master)
+FIRST_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" master.krejcmat.com)
 
 # delete old slave containers and start new slave containers
 i=1
@@ -26,8 +26,8 @@ do
 	echo "start slave$i container..."
 	sudo docker run -d -t --dns 127.0.0.1 -P --name slave$i.krejcmat.com -h slave$i.krejcmat.com -e JOIN_IP=$FIRST_IP krejcmat/hadoop-hbase-slave:$tag &> /dev/null
 	((i++))
-done 
+done
 
 
 # create a new Bash session in the master container
-sudo docker exec -it master bash
+sudo docker exec -it master.krejcmat.com bash
