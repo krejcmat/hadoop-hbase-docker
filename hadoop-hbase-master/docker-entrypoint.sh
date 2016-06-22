@@ -1,13 +1,16 @@
 #!/bin/bash
 
-echo "start-ssh-serf.sh"
-~/start-ssh-serf.sh
+echo "Start ssh and serf..."
+/root/start-ssh-serf.sh
 
-echo "configure-members.sh"
-~/configure-members.sh
+wait
+echo "Configure members..."
+/root/configure-members.sh
 
-echo "start-hadoop.sh"
-~/start-hadoop.sh
+wait
+echo "Start Hadoop..."
+/root/start-hadoop.sh
 
-echo "start-hbase.sh"
-~/start-hbase.sh
+wait
+echo "Start HBase..."
+/root/start-hbase.sh
