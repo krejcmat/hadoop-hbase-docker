@@ -23,7 +23,7 @@ do
 done 
 
 # delete master container
-sudo docker rm -f master 
+sudo docker rm -f master.krejcmat.com 
 
 # delete hadoop-hbase-master image
 sudo docker rmi krejcmat/hadoop-hbase-master:$tag 
