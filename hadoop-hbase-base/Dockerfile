@@ -1,5 +1,5 @@
-FROM krejcmat/hadoop-base:latest
-MAINTAINER krejcmat <matejkrejci@gmail.com>
+FROM sebge2/hadoop-base:latest
+MAINTAINER sgerard <sgerard@emasphere.com>
 
 # move all configuration files into container
 ADD files/* /usr/local/  
