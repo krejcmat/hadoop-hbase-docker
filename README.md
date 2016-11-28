@@ -6,7 +6,7 @@ Core of this project is based on [krejcmat/hadoop-docker](https://github.com/kre
 ######Version of products
 | system          | version    | 
 | ----------------|:----------:| 
-| HBase           | 1.1.3      |
+| HBase           | 1.2.4      |
 
 Used versions of Hadoop and HBase are officially compatible - fully tested.
 As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include).
