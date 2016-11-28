@@ -20,7 +20,7 @@ FIRST_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" master.krejc
 
 # delete old slave containers and start new slave containers
 i=1
-while [ $i -lt $N ]
+while [ $i -le $N ]
 do
 	sudo docker rm -f slave$i.krejcmat.com &> /dev/null
 	echo "start slave$i container..."
