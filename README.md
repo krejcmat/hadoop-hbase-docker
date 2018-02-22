@@ -3,7 +3,7 @@ Quickly build arbitrary size Hadoop cluster based on Docker includes HBase datab
 ------
 Core of this project is based on [krejcmat/hadoop-docker](https://github.com/krejcmat/hadoop-hbase-docker/blob/master/README.md) images. Please check details on mentioned site. Dockerfile sources of this project extends Hadoop docker ([krejcmat/hadoop-docker](https://github.com/krejcmat/hadoop-hbase-docker/blob/master/README.md)) images by few layers with HBase installation and configuration. As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include).
 
-######Version of products
+###### Version of products
 | system          | version    | 
 | ----------------|:----------:| 
 | HBase           | 1.2.4      |
@@ -11,7 +11,7 @@ Core of this project is based on [krejcmat/hadoop-docker](https://github.com/kre
 Used versions of Hadoop and HBase are officially compatible - fully tested.
 As handler of HBase native Zookeeper is used. For large clusters is highly recomanded to use external Zookeeper management(not include).
 
-######See file structure of project 
+###### See file structure of project 
 ```
 $ tree
 
@@ -56,30 +56,33 @@ $ tree
 
 ```
 
-###Usage
-####1] Clone git repository
+### Usage
+
+#### 1] Clone git repository
 ```
 $ git clone https://github.com/krejcmat/hadoop-hbase-docker.git
 $ cd hadoop-hbase-docker
 ```
 
-####2] Get docker images 
+#### 2] Get docker images 
 Two options how to get images are available. By pulling images directly from Docker official repository or build from Dockerfiles and sources files(see Dockerfile in each hadoop-hbase-* directory). Builds on DockerHub are automatically created by pull trigger or GitHub trigger after update Dockerfiles. Triggers are setuped for tag:latest. Below is example of stable version krejcmat/hadoop-hbase-<>:0.1. Version krejcmat/hadoop-hbase-<>:latest is compiled on DockerHub from master branche on GitHub.
 
-######a) Download from Docker hub
+###### a) Download from Docker hub
+
 ```
 $ docker pull krejcmat/hadoop-hbase-master:latest
 $ docker pull krejcmat/hadoop-hbase-slave:latest
 ```
 
-######b)Build from sources(Dockerfiles)
+###### b)Build from sources(Dockerfiles)
+
 Firstly build Hadoop dockere images [krejcmat/hadoop-docker](https://github.com/krejcmat/hadoop-docker).
 The first argument of the script for bulilds is must be folder with Dockerfile. Tag for sources is **latest**
 ```
 $ ./build-image.sh hadoop-hbase-base
 ```
 
-######Check images
+###### Check images
 ```
 $ docker images
 
@@ -89,13 +92,13 @@ krejcmat/hadoop-hbase-base                 latest              00fd6c19004f     
 
 ```
 
-####3] Initialize Hadoop (master and slaves)
+#### 3] Initialize Hadoop (master and slaves)
 For starting Hadoop cluster see documentation of [krejcmat/hadoop-docker](https://github.com/krejcmat/hadoop-docker/blob/master/README.md#3-initialize-hadoop-master-and-slaves).
 
 If Hadoop is runnig go to next step.
 
-####4] Initialize Hbase database and run Hbase shell
-######Start HBase
+#### 4] Initialize Hbase database and run Hbase shell
+###### Start HBase
 ```
 $ cd ~
 $ ./start-hbase.sh
@@ -103,13 +106,13 @@ $ ./start-hbase.sh
 (hbase(main):001:0>)
 ```
 
-######Check status
+###### Check status
 ```
 (hbase(main):001:0>)$ status
 
 2 servers, 0 dead, 1.0000 average load
 ```
-######Example of creating table and adding some values
+###### Example of creating table and adding some values
 ```
 $ create 'album','label','image'
 ```
@@ -137,14 +140,14 @@ label:text                                          timestamp=1454590583786, val
 6 row(s) in 0.0320 seconds
 ```
 
-####5] Control cluster from web UI
-######Overview of UI web ports
+#### 5] Control cluster from web UI
+###### Overview of UI web ports
 | web ui           | port       |
 | ---------------- |:----------:| 
 | Hbase            | 60010      |
 
 
-######Access from parent computer of docker container
+###### Access from parent computer of docker container
 Check IP addres in master container
 ```
 $ ip a
@@ -168,11 +171,11 @@ so your IP address is 172.17.0.2
 ```
 $ xdg-open http://172.17.0.2:60010/
 ```
-######Direct access from container(not implemented)
+###### Direct access from container(not implemented)
 Used Linux distribution is installed without graphical UI. Easiest way is to use another Unix distribution by modifying Dockerfile of hadoop-hbase-dnsmasq and rebuild images. In this case start-container.sh script must be modified. On the line where the master container is created must add parameters for [X forwarding](http://wiki.ros.org/docker/Tutorials/GUI). 
 
 
-######HBase usage
+###### HBase usage
 [python wrapper for HBase rest API](http://blog.cloudera.com/blog/2013/10/hello-starbase-a-python-wrapper-for-the-hbase-rest-api/)
 
 [usage of Java API for Hbase](https://autofei.wordpress.com/2012/04/02/java-example-code-using-hbase-data-model-operations/)
